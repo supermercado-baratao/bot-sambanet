@@ -1,7 +1,9 @@
 # Samb@net
 
 > [!WARNING]
-> **Projeto descontinuado.** Este bot não é mais utilizado nem mantido. O Supermercado Baratão deixou de usar o Samb@net e hoje opera com outro sistema, portanto não há mais como testar o projeto. O código é mantido apenas como referência e pode não funcionar com a versão atual do Samb@net.
+> **Projeto descontinuado.** Este bot não é mais utilizado por nós nem mantido ativamente. O Supermercado Baratão deixou de usar o Samb@net e hoje opera com outro sistema, portanto não há mais como testar o projeto. O código pode não funcionar com a versão atual do Samb@net.
+>
+> Mesmo assim, o repositório continua aberto: contribuições da comunidade são bem-vindas via issues e pull requests. Se você quiser utilizar o projeto, estou disposta a ajudar, basta abrir uma issue.
 
 ## Resultados
 
@@ -59,22 +61,6 @@ Da mesma forma que ocorre em `Entrada NF`, o script irá navegar para próxima p
 
 ## Como Executar
 
-### Instalação das dependências externas
-
-```
-sudo apt-get install python3-pip
-pip install playwright
-python3 -m playwright install
-python3 -m playwright install-deps
-```
-
-### Instalação das dependências internas
-
-```
-cd bot-sambanet
-npm i
-```
-
 ### Configuração das variáveis de ambiente
 
 Renomeie o arquivo `.env.example` para `.env` e atribua os valores:
@@ -87,20 +73,12 @@ PASSWORD=
 MONGO_URI=
 ```
 
-### Execução
+### Execução com Docker (recomendado)
 
-```
-npm run dev
-
-Acesse: http://localhost:3001
-```
-
-### Execução com Docker
-
-Como alternativa à instalação manual, o projeto possui um `Dockerfile` e um `compose.yml` que já instalam todas as dependências do Chromium usado pelo Puppeteer.
+O projeto possui um `Dockerfile` e um `compose.yml` que já instalam todas as dependências do Chromium usado pelo Puppeteer.
 
 1. Instale o [Docker](https://docs.docker.com/get-docker/) com o plugin Docker Compose
-2. Crie o arquivo `.env` a partir do `.env.example`, conforme descrito acima
+2. Crie o arquivo `.env` a partir do `.env.example`, conforme descrito na seção anterior
 3. Construa a imagem e suba o container:
 
 ```
@@ -121,7 +99,35 @@ O container roda em modo de produção (`NODE_ENV=production`), executando a ver
 > [!NOTE]
 > O `compose.yml` mapeia a pasta `./data` para `/app/data`, mas no build de produção o código grava os arquivos (`app.log`, `nfs-finalizadas.txt` e `nao-cadastrados.json`) em `/app/dist/data`. Por isso esses arquivos não são persistidos no host e são perdidos quando o container é recriado. Os produtos associados ficam salvos no MongoDB e não são afetados.
 
-![Home](./.github/images//home.png)
+### Execução local
+
+#### Instalação das dependências externas
+
+```
+sudo apt-get install python3-pip
+pip install playwright
+python3 -m playwright install
+python3 -m playwright install-deps
+```
+
+#### Instalação das dependências internas
+
+```
+cd bot-sambanet
+npm i
+```
+
+#### Execução
+
+```
+npm run dev
+
+Acesse: http://localhost:3001
+```
+
+### Utilização
+
+![Home](./.github/images/home.png)
 
 Ao iniciar pela primeira vez, o script irá percorrer todas as notas pendentes, e irá salvar as notas que estão com todos os produtos associados no arquivo `nfs-finalizadas.txt`
 

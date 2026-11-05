@@ -2,7 +2,7 @@
   "name": "bot-sambanet",
   "version": "1.0.0",
   "description": "Bot para automatizar ações no lançamento de Notas Fiscais utilizando o software Samb@net",
-  "repository": "https://github.com/diasjoaovitor/node-boilerplate.git",
+  "repository": "https://github.com/supermercado-baratao/bot-sambanet.git",
   "author": "João Vitor <jvitordiass@outlook.com.br>",
   "main": "src/app.ts",
   "license": "MIT",

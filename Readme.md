@@ -1,5 +1,12 @@
 # Samb@net
 
+> [!WARNING]
+> **Projeto descontinuado.** Este bot não é mais utilizado nem mantido. O Supermercado Baratão deixou de usar o Samb@net e hoje opera com outro sistema, portanto não há mais como testar o projeto. O código é mantido apenas como referência e pode não funcionar com a versão atual do Samb@net.
+
+## Resultados
+
+Durante o período em que esteve em uso, de **13 de março de 2024** a **20 de maio de 2025**, o bot associou automaticamente **5.427 produtos**.
+
 Script desenvolvido para automatizar a associação de produtos durante o lançamento de Notas Fiscais utilizando o software [Samb@net](https://getway.com.br/universo-sambanet/)
 
 ## Tecnologias
@@ -88,6 +95,32 @@ npm run dev
 Acesse: http://localhost:3001
 ```
 
+### Execução com Docker
+
+Como alternativa à instalação manual, o projeto possui um `Dockerfile` e um `compose.yml` que já instalam todas as dependências do Chromium usado pelo Puppeteer.
+
+1. Instale o [Docker](https://docs.docker.com/get-docker/) com o plugin Docker Compose
+2. Crie o arquivo `.env` a partir do `.env.example`, conforme descrito acima
+3. Construa a imagem e suba o container:
+
+```
+docker compose up -d --build
+```
+
+4. Acesse: http://localhost:3001
+
+Comandos úteis:
+
+```
+docker compose logs -f   # acompanhar os logs
+docker compose down      # parar e remover o container
+```
+
+O container roda em modo de produção (`NODE_ENV=production`), executando a versão compilada (`npm run build` e `npm run start`).
+
+> [!NOTE]
+> O `compose.yml` mapeia a pasta `./data` para `/app/data`, mas no build de produção o código grava os arquivos (`app.log`, `nfs-finalizadas.txt` e `nao-cadastrados.json`) em `/app/dist/data`. Por isso esses arquivos não são persistidos no host e são perdidos quando o container é recriado. Os produtos associados ficam salvos no MongoDB e não são afetados.
+
 ![Home](./.github/images//home.png)
 
 Ao iniciar pela primeira vez, o script irá percorrer todas as notas pendentes, e irá salvar as notas que estão com todos os produtos associados no arquivo `nfs-finalizadas.txt`
@@ -115,7 +148,7 @@ Já os produtos não cadastrados são salvos em um arquivo `txt`, que é sobresc
 
 ## Logs
 
-Todos os logs ficam salvos no arquivo `app.log`:
+Todos os logs ficam salvos no arquivo `data/app.log`:
 
 ```log
 {
